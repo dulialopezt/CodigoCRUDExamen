@@ -1,0 +1,98 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Lista De Tareas
+    </ion-title>
+    <ion-buttons slot="primary">
+      <ion-button (click)="NuevaTarea()">
+        <ion-icon slot="icon-only" name="add-outline"></ion-icon>    
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-list>
+    <ion-item-sliding size="12" size-lg="12" size-md="12" size-sm="12" *ngFor ="let item of arrayCollection"  (click)="seleccionarTarea(item)">
+      <ion-item-options side="start">
+        <ion-item-option color="danger" (click)="BorrarTarea(item.id)">
+          <ion-icon slot="icon-only" name="trash"></ion-icon>
+        </ion-item-option>
+        <ion-item-option (click)="EditarTarea(item.data,item.id)">
+        <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+      <!--Nuestro Item-->
+      <ion-item >
+        <ion-label size="6" size-lg="6" size-md="6" size-sm="6">
+          <ion-text color="primary">
+            <h3>{{item.data.titulo}}</h3>
+          </ion-text>
+           <p>{{item.data.descripcion}}</p> 
+        </ion-label>
+       
+          <ion-label size="6" size-lg="6" size-md="6" size-sm="6">
+            <ion-item>
+              <ion-text color="primary">
+                <h3>{{item.data.inicio}}</h3>
+              </ion-text>
+              <ion-icon slot="end" name="alarm-outline"></ion-icon>
+              
+            </ion-item>
+            
+          </ion-label>
+        
+        
+      </ion-item>
+     
+
+    </ion-item-sliding>
+  </ion-list>
+  <!---  Lo modificado por mi
+  <ion-grid fixed>
+    <ion-row *ngFor="let item of arrayCollection" (click)="seleccionarTarea(item)">
+      <ion-col size="6" size-lg="6" size-md="6" size-sm="6"  >
+         
+         <ion-label>
+          <h3> {{item.data.titulo}}</h3>
+          <p>{{item.data.descripcion}}</p>
+         
+        </ion-label>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+-->
+
+<!-- Datos con el Servicio 
+
+  <ion-list>
+    <ion-item *ngFor="let item of arrayCollection" (click)="seleccionarTarea(item)">
+      <ion-label>
+        <h3> {{item.data.titulo}}</h3>
+        <p>{{item.data.descripcion}}</p>
+        <p>{{item.data.inicio}}</p>
+      </ion-label>>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+     <ion-item>
+       <ion-label>Titulo:</ion-label>
+       <ion-input [(ngModel)]="tareaEditando.titulo" type="text" placeholder="Titulo tarea"></ion-input>
+     </ion-item>
+     <ion-item>
+       <ion-label>Descripcion:</ion-label>
+       <ion-input [(ngModel)]="tareaEditando.descripcion" type="text" placeholder="Descripcion Tarea"></ion-input>
+     </ion-item>
+  </ion-list>
+  <ion-button (click)="insertarTarea()" expand="block">
+   Añadir Tarea
+  </ion-button>
+  <ion-button (click)="borrar()" expand="block">
+    Eliminar
+   </ion-button>
+   <ion-button (click)="modificar()" expand="block">
+    Modificar
+   </ion-button>
+   --> 
+</ion-content>

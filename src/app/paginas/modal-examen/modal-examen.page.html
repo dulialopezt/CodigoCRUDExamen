@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      {{titulo}}
+    </ion-title>
+    <ion-buttons slot="primary">
+      <ion-button (click)="salirOpcion()">
+        <ion-icon slot="icon-only" name="close-outline"></ion-icon>        
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label>Titulo:</ion-label>
+      <ion-input [(ngModel)]="tareaEditando.titulo" type="text" placeholder="Titulo tarea"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Descripcion:</ion-label>
+      <ion-input [(ngModel)]="tareaEditando.descripcion" type="text" placeholder="Descripcion Tarea"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Inicio:</ion-label>
+      <ion-item>
+          <ion-label></ion-label>
+          <ion-datetime 
+                       display-format="HH:mm" 
+                       cancel-Text="Cancelar" 
+                       done-Text="Aceptar"
+                       placeholder="Inicio tarea"
+                       [(ngModel)]="tareaEditando.inicio"
+                       
+                       >
+          </ion-datetime>
+      </ion-item>
+    </ion-item>
+ </ion-list>
+ <ion-button (click)="insertarModificarTarea()" expand="block">
+     {{tituloBoton}}
+ </ion-button>
+</ion-content>
