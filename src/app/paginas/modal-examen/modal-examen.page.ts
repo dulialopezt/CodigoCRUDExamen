@@ -15,20 +15,18 @@ export class ModalExamenPage implements OnInit {
   @Input() tituloBoton:String;
   @Input() tareaEdicion:Tarea;
   @Input() idTareaSeleccionada:string;
-
+ 
   tareaEditando :Tarea;
 
  
   constructor(private firestoreService:FirestoreService,private modalController:ModalController) 
   { 
-     this.tareaEditando= {} as Tarea;
-     console.log('En constructor');
-     console.log(this.tareaEditando);
+    this.tareaEditando = {} as Tarea;
+   
   }
 
-  ngOnInit() {
-  
-    this.tareaEditando = this.tareaEdicion;
+  ngOnInit() {  
+     this.tareaEditando= this.tareaEdicion;   
   }
   salirOpcion(){
     console.log('En salir');
@@ -39,16 +37,16 @@ export class ModalExamenPage implements OnInit {
 
   insertarModificarTarea(){
     console.log('Insertar/Modificar')
-    console.log(this.tareaEdicion);
-    console.log(this.tareaEditando);
-    if(typeof(this.tareaEdicion ) === "undefined"){
+    console.log(this.idTareaSeleccionada);
+   
+    if(!this.idTareaSeleccionada){
       this.firestoreService.insertar("tareas",this.tareaEditando).then(()=>{
         console.log('Hola se creo Satisfac');
 
         console.log(this.tareaEditando);
         this.tareaEditando = {} as Tarea;
         this.modalController.dismiss();
-        
+        this.idTareaSeleccionada  = null;
         
       },(error)=>{
         console.log("entroo con errores");

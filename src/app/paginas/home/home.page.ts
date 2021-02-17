@@ -1,5 +1,5 @@
 import { Component,OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, ToastController } from '@ionic/angular';
 import {FirestoreService} from '../../services/firestore.service'
 import {Tarea} from '../../tarea'
 import { ModalExamenPage } from '../modal-examen/modal-examen.page';
@@ -10,6 +10,8 @@ import { ModalExamenPage } from '../modal-examen/modal-examen.page';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit{
+titulo: String = "Añadir Tarea";
+
 tareaEditando:Tarea;
 
 arrayCollection:any=[
@@ -20,12 +22,22 @@ arrayCollection:any=[
 ]
 idTareaSel:string =null;
 
-  constructor(private firestoreService:FirestoreService,private modalController:ModalController) {
+  constructor(private firestoreService:FirestoreService,private modalController:ModalController, private toastCtrl: ToastController) {
    this.tareaEditando ={} as Tarea;
     this.obtenerLista();
   }
+
+  nuevaTarea(){
+    this.titulo = "Añadir Tarea";
+    this.showModal(this.tareaEditando, null);
+  }
+
+  editarTarea(tarea: Tarea, id:String){
+    this.titulo = "Modificar Tarea";
+    this.showModal(tarea, id);
+  }
   
-  async NuevaTarea() {
+  /*async NuevaTarea() {
     console.log('En nueva Tarea')
     const modal = await this.modalController.create({
       component: ModalExamenPage,
@@ -45,13 +57,14 @@ idTareaSel:string =null;
     console.log('En Editar Tarea');
     console.log(tarea);
     console.log(id);
+    //this.tareaEditando = tarea;
    
     const modal = await this.modalController.create({
       component: ModalExamenPage,
       cssClass: 'my-custom-class',
       componentProps:{
         titulo : 'Modificar Tarea',
-        tareaEdicion : tarea as Tarea,
+        tareaEdicion : tarea,
         tituloBoton : "Modificar Tarea",
         idTareaSel : id
       }
@@ -60,6 +73,32 @@ idTareaSel:string =null;
     const {data}= await modal.onWillDismiss();
     console.log('Al salir de editar');
     console.log(data)
+  }*/
+
+  async showtoast(){
+    const toast = await this.toastCtrl.create({
+      message: "Tarea Ejecutada",
+      cssClass: 'my-custom-class',
+      duration: 3000
+    });
+    await toast.present();
+  }
+  async showModal(tarea, id){
+    const modal = await this.modalController.create({
+      component: ModalExamenPage,
+      cssClass: 'my-custom-class',
+      componentProps:{
+        titulo : this.titulo,
+        tareaEdicion : tarea,
+        tituloBoton : this.titulo,
+        idTareaSeleccionada : id
+      }
+    });
+    await modal.present();
+    const { data }= await modal.onWillDismiss();
+    this.showtoast();
+    
+
   }
 
   BorrarTarea(id) {
